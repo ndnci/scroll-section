@@ -1,0 +1,28 @@
+#section1 {
+    background: lightblue;
+}
+
+#section2 {
+    background: lightgreen;
+}
+
+#section3 {
+    background: lightcoral;
+}
+
+#section4 {
+    background: lightgoldenrodyellow;
+}
+
+.scroll-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+
+    textarea {
+        width: 250px;
+        height: 250px;
+    }
+}
