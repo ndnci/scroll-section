@@ -2,8 +2,11 @@ import "./main.scss";
 
 // Current section index
 let currentSection: number = 0;
+
 // Collection of all sections
 const sections: NodeListOf<HTMLElement> = document.querySelectorAll(".scroll-section");
+const navLinks: NodeListOf<HTMLAnchorElement> = document.querySelectorAll(".scroll-section-menu a");
+
 // Variables to store the Y position of touch start and end
 let touchStartY: number = 0;
 let touchEndY: number = 0;
@@ -82,3 +85,37 @@ function adjustScrollPosition(): void {
         section.style.transform = `translateY(${yOffset}px)`;
     });
 }
+
+navLinks.forEach((link) => {
+    link.addEventListener("click", (e: Event) => {
+        e.preventDefault();
+        const targetId: string = (e.target as HTMLAnchorElement).getAttribute("href") || "";
+        const targetSection: HTMLElement | null = document.querySelector(targetId);
+
+        if (targetSection) {
+            // Calculate the section index
+            const sectionIndex: number = Array.from(sections).indexOf(targetSection);
+            currentSection = sectionIndex;
+            scroll();
+
+            // Update URL without reloading the page
+            window.history.pushState(null, "", targetId);
+        }
+    });
+});
+
+// Function to scroll to the section based on the URL hash on page load
+function scrollToSectionOnLoad(): void {
+    const hash = window.location.hash;
+    if (hash) {
+        const targetSection: HTMLElement | null = document.querySelector(hash);
+        if (targetSection) {
+            const sectionIndex: number = Array.from(sections).indexOf(targetSection);
+            currentSection = sectionIndex;
+            scroll();
+        }
+    }
+}
+
+// Call the function on initial page load
+scrollToSectionOnLoad();
