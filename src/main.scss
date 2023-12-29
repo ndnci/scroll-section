@@ -8,7 +8,8 @@ html,
     overflow: hidden;
 
     .scroll-section {
-        height: 100vh;
+        min-height: 100vh; // old browsers compatibility
+        min-height: 100svh;
         transition: transform 0.5s ease;
     }
 }
